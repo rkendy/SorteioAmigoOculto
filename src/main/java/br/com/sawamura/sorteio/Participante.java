@@ -4,8 +4,6 @@ package br.com.sawamura.sorteio;
 import java.util.Objects;
 
 /**
- * Olá
- * 
  * @author rkendy
  */
 public class Participante {
