@@ -34,10 +34,10 @@ public class SorteioAmigoOculto {
         String texto = "Olá %s!. Bem-vindo ao Sorteio do Amigo Oculto 2020!!" + "\n\n\nSeu amigo oculto será: %s."
                 + "\nRegras: etc...";
 
-        Email email = new Email(titulo);
+        EmailService emailService = new EmailService(titulo);
         this.participantes.forEach((p) -> {
             String textoEmail = String.format(texto, p.getNome(), p.getAmigoOculto().getNome());
-            email.envia(p.getEmail(), textoEmail);
+            emailService.envia(p.getEmail(), textoEmail);
         });
     }
 

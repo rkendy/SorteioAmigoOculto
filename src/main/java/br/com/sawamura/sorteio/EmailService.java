@@ -3,11 +3,12 @@ package br.com.sawamura.sorteio;
 import java.util.Properties;
 
 import javax.mail.Address;
-import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Authenticator;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -17,15 +18,15 @@ import javax.mail.internet.MimeMultipart;
  *
  * @author rkendy
  */
-public class Email {
+public class EmailService {
 
-    private static String EMAIL_REMETENTE = "";
+    private static String EMAIL_REMETENTE = "rkendy@gmail.com";
     private static String EMAIL_SENHA_APP = "";
 
     private Properties props;
     private String titulo;
 
-    public Email(String titulo) {
+    public EmailService(String titulo) {
         this.props = getProperties();
         this.titulo = titulo;
     }
@@ -43,12 +44,13 @@ public class Email {
 
     public void envia(String email, String texto) {
 
-        Session session = Session.getDefaultInstance(this.props, new javax.mail.Authenticator() {
-            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
                 // Para configurar senha/acesso:
                 // https://myaccount.google.com/lesssecureapps
                 // https://support.google.com/accounts/answer/185833
-                return new javax.mail.PasswordAuthentication(EMAIL_REMETENTE, EMAIL_SENHA_APP);
+                return new PasswordAuthentication(EMAIL_REMETENTE, EMAIL_SENHA_APP);
             }
         });
 
