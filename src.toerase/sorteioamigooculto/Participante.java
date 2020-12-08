@@ -4,7 +4,8 @@ package sorteioamigooculto;
 import java.util.Objects;
 
 /**
- *
+ * Olá
+ * 
  * @author rkendy
  */
 public class Participante {
@@ -18,7 +19,6 @@ public class Participante {
         this.amigoOculto = null;
     }
 
-    
     public String getNome() {
         return nome;
     }
@@ -42,7 +42,6 @@ public class Participante {
     public void setAmigoOculto(Participante amigoOculto) {
         this.amigoOculto = amigoOculto;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -69,8 +68,5 @@ public class Participante {
         hash = 71 * hash + Objects.hashCode(this.email);
         return hash;
     }
-    
 
-    
-    
 }
