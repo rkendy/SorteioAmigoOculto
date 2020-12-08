@@ -1,0 +1,6 @@
+# ==================================
+# Formato do conteudo: Nome:email
+# ==================================
+Nome 01:nome01@gmail.com
+Nome 02:nome02@gmail.com
+Nome 03:nome03@gmail.com
