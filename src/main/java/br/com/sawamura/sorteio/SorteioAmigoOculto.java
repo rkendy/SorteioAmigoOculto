@@ -1,8 +1,11 @@
 package br.com.sawamura.sorteio;
 
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -10,23 +13,14 @@ import java.util.List;
  */
 public class SorteioAmigoOculto {
 
-    /**
-     * @param args the command line arguments
-     */
-    // public static void main(String[] args) {
-    // System.out.println("Olá !");
-    // SorteioAmigoOculto sorteio = new SorteioAmigoOculto();
-    // sorteio.realizaSorteio();
-    // }
-
     private List<Participante> participantes;
 
     public void realizaSorteio() {
         carregaParticipantes();
         mistura();
         defineAmigosOcultos();
-        // imprime();
-        enviaEmails();
+        imprime();
+        // enviaEmails();
     }
 
     private void enviaEmails() {
@@ -42,9 +36,10 @@ public class SorteioAmigoOculto {
     }
 
     private void carregaParticipantes() {
-        this.participantes = new ArrayList<Participante>();
-        this.participantes.add(criaParticipante("Nome do participante 1", "rkendy@hotmail.com"));
-        this.participantes.add(criaParticipante("Nome do participante 2", "rkendy@id.uff.br"));
+        participantes = carregaArquivo() //
+                .map(str -> str.split(":")) //
+                .map(str -> criaParticipante(str[0], str[1])) //
+                .collect(Collectors.toList());
     }
 
     private void mistura() {
@@ -71,8 +66,17 @@ public class SorteioAmigoOculto {
     private void imprime() {
         this.participantes.forEach((p) -> {
             System.out.println(
-                    "Nome: " + p.getNome() + " Email: " + p.getEmail() + " Amigo: " + p.getAmigoOculto().getNome());
+                    "Nome: " + p.getNome() + ". Email: " + p.getEmail() + ". Amigo: " + p.getAmigoOculto().getNome());
         });
+    }
+
+    private Stream<String> carregaArquivo() {
+        try {
+            return Files.lines(Paths.get("participantes.txt")).filter(line -> !line.startsWith("#"));
+        } catch (Exception e) {
+            System.out.println("Erro: " + e);
+            throw new RuntimeException("Erro ao ler arquivo");
+        }
     }
 
 }
