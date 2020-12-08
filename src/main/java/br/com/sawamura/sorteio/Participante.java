@@ -1,5 +1,5 @@
 
-package sorteioamigooculto;
+package br.com.sawamura.sorteio;
 
 import java.util.Objects;
 

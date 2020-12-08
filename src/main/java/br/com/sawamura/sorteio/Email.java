@@ -1,13 +1,13 @@
-package sorteioamigooculto;
+package br.com.sawamura.sorteio;
 
 import java.util.Properties;
+
 import javax.mail.Address;
 import javax.mail.BodyPart;
+import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -44,11 +44,11 @@ public class Email {
     public void envia(String email, String texto) {
 
         Session session = Session.getDefaultInstance(this.props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
+            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
                 // Para configurar senha/acesso:
                 // https://myaccount.google.com/lesssecureapps
                 // https://support.google.com/accounts/answer/185833
-                return new PasswordAuthentication(EMAIL_REMETENTE, EMAIL_SENHA_APP);
+                return new javax.mail.PasswordAuthentication(EMAIL_REMETENTE, EMAIL_SENHA_APP);
             }
         });
 
@@ -58,15 +58,15 @@ public class Email {
         try {
             System.out.println("Enviando email para " + email);
 
-            MimeMessage message = new MimeMessage(session);
+            Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(EMAIL_REMETENTE)); // Remetente
 
             Address[] toUser = InternetAddress.parse(email);
 
             message.setRecipients(MimeMessage.RecipientType.TO, toUser);
-            message.setSubject(this.titulo, "utf-8"); // Assunto
+            message.setSubject(this.titulo); // Assunto
 
-            BodyPart messageBodyPart = new MimeBodyPart();
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setContent(texto, "text/html; charset=utf-8");
             messageBodyPart.setHeader("Content-Type", "text/plain; charset=\"utf-8\"");
             messageBodyPart.setContent(texto, "text/plain; charset=utf-8");
