@@ -41,8 +41,8 @@ public class EmailService {
             System.out.println("\texport " + EMAIL_REMETENTE_KEY + "=email");
             System.out.println("\texport " + EMAIL_SENHA_KEY + "=senha");
             System.out.println("Para gerar senha, ver https://myaccount.google.com/lesssecureapps");
+            System.exit(1);
         }
-        throw new RuntimeException();
     }
 
     private Properties getProperties() {
