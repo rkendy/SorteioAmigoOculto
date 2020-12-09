@@ -13,20 +13,23 @@ import java.util.stream.Stream;
  */
 public class SorteioAmigoOculto {
 
+    public static String titulo = "Sorteio Amigo Oculto 2020";
+
     private List<Participante> participantes;
 
     public void realizaSorteio() {
         carregaParticipantes();
         mistura();
         defineAmigosOcultos();
-        imprime();
-        // enviaEmails();
+        // imprime();
+        enviaEmails();
     }
 
     private void enviaEmails() {
-        String titulo = "Email do Sorteio Amigo Oculto 2020";
-        String texto = "Olá %s!. Bem-vindo ao Sorteio do Amigo Oculto 2020!!" + "\n\n\nSeu amigo oculto será: %s."
-                + "\nRegras: etc...";
+        // String titulo = "Email do Sorteio Amigo Oculto 2020";
+        String texto = "Olá %s!. Bem-vindo ao " //
+                + titulo + "!!\n\n\n" //
+                + "Seu amigo oculto será: %s" + "!!!!\n";
 
         EmailService emailService = new EmailService(titulo);
         this.participantes.forEach((p) -> {
@@ -38,7 +41,7 @@ public class SorteioAmigoOculto {
     private void carregaParticipantes() {
         participantes = carregaArquivo() //
                 .map(str -> str.split(":")) //
-                .map(str -> criaParticipante(str[0], str[1])) //
+                .map(str -> criaParticipante(str[0].trim(), str[1].trim())) //
                 .collect(Collectors.toList());
     }
 
