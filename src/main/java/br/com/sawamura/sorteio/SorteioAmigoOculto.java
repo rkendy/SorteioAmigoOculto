@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  */
 public class SorteioAmigoOculto {
 
-    public static String titulo = "Sorteio Amigo Oculto 2020";
+    public static String titulo = "Sorteio Amigo Oculto 2021";
 
     private List<Participante> participantes;
 
@@ -75,7 +75,7 @@ public class SorteioAmigoOculto {
 
     private Stream<String> carregaArquivo() {
         try {
-            return Files.lines(Paths.get("participantes.txt")).filter(line -> !line.startsWith("#"));
+            return Files.lines(Paths.get("participantes.txt")).filter(line -> !"".equals(line) && !line.startsWith("#"));
         } catch (Exception e) {
             System.out.println("Erro: " + e);
             throw new RuntimeException("Erro ao ler arquivo");
