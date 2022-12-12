@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  */
 public class SorteioAmigoOculto {
 
-    public static String titulo = "Sorteio Amigo Oculto 2021";
+    public static final String TITULO = "Sorteio Amigo Oculto 2022";
 
     private List<Participante> participantes;
 
@@ -28,10 +28,10 @@ public class SorteioAmigoOculto {
     private void enviaEmails() {
         // String titulo = "Email do Sorteio Amigo Oculto 2020";
         String texto = "Olá %s!. Bem-vindo ao " //
-                + titulo + "!!\n\n\n" //
+                + TITULO + "!!\n\n\n" //
                 + "Seu amigo oculto será: %s" + "!!!!\n";
 
-        EmailService emailService = new EmailService(titulo);
+        EmailService emailService = new EmailService(TITULO);
         this.participantes.forEach((p) -> {
             String textoEmail = String.format(texto, p.getNome(), p.getAmigoOculto().getNome());
             emailService.envia(p.getEmail(), textoEmail);
